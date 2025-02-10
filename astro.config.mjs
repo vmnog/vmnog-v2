@@ -6,11 +6,11 @@ import tailwind from "@astrojs/tailwind";
 
 import icon from "astro-icon";
 
-import netlify from "@astrojs/netlify";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  output:'server',
+  output: "server",
   integrations: [mdx(), sitemap(), tailwind(), icon()],
-  adapter: netlify(),
+  adapter: cloudflare(),
 });
