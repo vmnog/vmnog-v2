@@ -21,42 +21,34 @@ import { getCollection } from "astro:content";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-const bgClasses = [
-  "hover:shadow-ppinkHover",
-  "hover:shadow-pgreenHover",
-  "hover:shadow-pblueHover",
-  "hover:shadow-pyellow",
-
-];
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}')
 if (!images[heroImage]) throw new Error(`"${heroImage}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 
-const getRandomClass = () => {
-  return bgClasses[Math.floor(Math.random() * bgClasses.length)];
-};
 ---
 
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
   </head>
-  <body>
+  <body class="p-0 m-0 max-w-screen font-mono lowercase">
     <Header />
     <main class="container mx-auto md:px-10 text-white">
       <article >
         <div class="relative mb-20" transition:animate="fade">
           <span class="bg-black bg-opacity-25 w-full h-full absolute"></span>
-          <div class="absolute bottom-10 md:left-20 left-6">
+          <div class="absolute bottom-10 md:left-20 left-6 z-10">
             <h1 class="text-4xl md:text-9xl font-semibold text-shadow">
-              <span class="font-kablamo text-ppink">{title.charAt(0)}</span>{
+              <span class="font-kablamo text-pblack">{title.charAt(0)}</span>{
                 title.slice(1)
               }
             </h1>
-            <p  set:html={description} />
+            <p set:html={description} />
           </div>
-          <Image src={images[heroImage]()}  alt={title} class="h-96 w-full object-cover"/>
+          <div class="h-96 bg-black">
+            <Image src={images[heroImage]()}  alt={title} class="h-96 w-full object-cover opacity-50 grayscale"/>
+          </div>
         </div>
         <div class="text-black px-6 md:px-0">
           <div class="">
@@ -84,7 +76,7 @@ const getRandomClass = () => {
                 {
                   posts.map((post) => {
                     return (
-                      <li class=`text-left rounded-lg border-1 border-black shadow-card group hover:shadow-hover transition  px-2 py-2 ${getRandomClass()}` >
+                      <li class=`text-left rounded-none border-1 border-black shadow-card group hover:shadow-hover transition  px-2 py-2` >
                         <a
                           href={`/blog/${post.id}/`}
                         >
@@ -99,11 +91,11 @@ const getRandomClass = () => {
               <p>Written by</p>
               <div class="flex -mt-4 gap-2">
                   <div class="bg-pgreen rounded-full w-12 h-12 aspect-square object-contain overflow-hidden ">
-                    <Image src={images["/src/assets/hero.png"]()} alt="Fran" />
+                    <Image src={images["/src/assets/hero.png"]()} alt="Victor Nogueira" class="grayscale" />
                   </div>
                   <div>
-                  <h3>Joaquín Sorolla</h3>
-                  <p class="text-pblack">UX UI designer based<br>in Steve Jobs</p>
+                  <h3>Victor Nogueira</h3>
+                  <p class="text-pblack">software engineer <br/>& entrepreneur</p>
                 </div>
               </div>
               <hr/>
@@ -111,25 +103,32 @@ const getRandomClass = () => {
                 <p>Contributors:</p>
                 <div class="flex items-center gap-6 text-xl">
                   <a
-                    href="https://jramma.com"
+                    href="https://vmnog.com"
                     target="_blank"
-                    class="py-1 pl-3 rounded-md border-1 border-black bg-ppink shadow-card hover:shadow-hover transition"
+                    class="py-1 pl-3 rounded-none border-1 border-black shadow-card hover:shadow-hover transition"
                   >
                     <Icon name="web" />
                   </a>
                   <a
-                    href="https://github.com/jramma"
+                    href="https://github.com/vmnog"
                     target="_blank"
-                    class="border-1 p-1 border-black rounded-full bg-pblue shadow-card hover:shadow-hover transition"
+                    class="border-1 p-1 size-8 flex items-center justify-center border-black rounded-full shadow-card hover:shadow-hover transition"
                   >
                     <Icon name="github" />
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/jramma/"
+                    href="https://www.linkedin.com/in/vmnogueira/"
                     target="_blank"
-                    class="border-1 p-1 border-black rounded-full bg-pgreen shadow-card hover:shadow-hover transition"
+                    class="border-1 p-1 size-8 flex items-center justify-center border-black rounded-full shadow-card hover:shadow-hover transition"
                   >
                     <Icon name="linkedin" />
+                  </a>
+                  <a
+                    href="https://www.x.com/caraquecoda/"
+                    target="_blank"
+                    class="size-8 flex items-center justify-center border-1 border-black rounded-full shadow-card hover:shadow-hover transition"
+                  >
+                    <Icon name="x" class="min-w-28" />
                   </a>
                 </div>
               </div>

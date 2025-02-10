@@ -23,12 +23,13 @@ export default {
         pyellow: "#F2CF96",
         ppurlple: "#9D859A",
         pblack: "#4E6273",
+        pgray: "#BABABA",
         white: {
           DEFAULT: "#F2F2F2",
         },
       },
       fontFamily: {
-        mono: ["Alexandria", "monospace"],
+        mono: ["IBMPlexMono", "monospace"],
         sans: ["Alexandria", "sans-serif"],
         kablamo: ["Kablammo", "serif"],
       },
